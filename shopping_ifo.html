@@ -16,47 +16,95 @@ window.onresize=function(){
 </head>
 
 <body>
-<h2 class="title">报价信息填写</h2>
+<h2 class="title">订购信息填写</h2>
 <section class="clearfix">
-	<p>订购日期</p>
-    <div>2016年01月22日</div>
+	<p>报价日期</p>
+    <div id="book-date"></div>
 </section>
 <section class="clearfix">
 	<p>产品名称</p>
-    <div>劳保军大衣</div>
+    <div id="goods-name"></div>
 </section>
 <section class="clearfix">
 	<p>规格型号</p>
-    <div>165-180</div>
+    <div id='version'></div>
 </section>
-<section class="amount clearfix">
+<section class="quote clearfix">
 	<p>价格</p>
-    <div>326</div>
+    <input id="price" type="number"/>
 </section>
 <section class="quote clearfix">
 	<p>订购数量</p>
-    <input type="number"/>
+    <input id="stock" type="number"/>
 </section>
 <section class="clearfix">
 	<p>订购人</p>
-    <input type="text"/>
+    <input id="link-name" type="text"/>
 </section>
 <section class="clearfix">
 	<p>联系方式</p>
-    <input type="number"/>
+    <input id="link-phone" type="text"/>
 </section>
 <section class="clearfix">
 	<p>备注</p>
-    <textarea></textarea>
+    <textarea id="other"></textarea>
 </section>
 <div class="submit">
 	<span>电话报价</span>
-    <a href="tel:"></a>
-    <input type="image" src="./img/quote.png"/>
+    <a  id="contact-phone" href="tel:"></a>
+    <input onclick="submitInfo()" type="image" src="./img/quote.png"/>
 </div>
 </body>
 <script src="./js/zepto.min.js"></script>
 <script>
-
+$(function(){
+	var goodsId = getGoodsId();
+	loadDetail(goodsId);
+});
+function getGoodsId(){
+	var arguments = location.href.split("=");
+	goodsId = arguments[1];
+	return goodsId;
+}
+function loadDetail(goodsId){
+    $.getJSON("http://www.sbtkjt.net/app/goodsdetail/"+goodsId,function(data){
+    	var timeObj = new Date();
+      	$('#book-date').text(timeObj.getFullYear()+'-'+timeObj.getMonth()+'-'+timeObj.getDay());
+      	$('#goods-name').text(data.title);
+      	$('#version').text(data.version);
+      	$('#contact-phone').attr('href',"tel:"+data.link_phone);
+    });
+}
+function submitInfo(){
+	if($('#price').val()==""||$('#link-name').val()==""||$('#link-phone').val()==""||$('#stock').val()==""){
+		alert('请填写完整信息');
+		return;
+	}
+	if(!($('#price').val()>0&&$('#stock').val()>0)){
+		alert('信息有误');
+		return;
+	}
+	$.ajax({
+		url: 'http://www.sbtkjt.net/app/store',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			product_id: goodsId,
+			type: 'buy',
+			product_name: $('#goods-name').text(),
+			version: $('#version').text(),
+			price: $('#price').val(),
+			stock: $('#stock').val(),
+			link_name: $('#link-name').val(),
+			link_phone: $('#link-phone').val(),
+			other: $('#goods-name').val(),
+		},
+		success:function(){
+			alert('提交成功');
+			history.back();
+		}
+	})
+	
+}
 </script>
 </html>
