@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{color:#fff;}
+.title{text-align:center;font-size:0.56rem;padding:5.14% 0;}
+section p,section input,section textarea,section div{float:left;}
+section p{margin-right:5.86%;width:30.8%;text-align:right;font-size:0.4rem;font-weight:bold;}
+section div{width:40.67%;text-align:center;font-size:0.4rem;}
+section input{width:48%;font-size:0.34rem;height:0.6rem;border:none;padding-left:0.2rem;margin-top:-0.1rem;}
+section{margin-bottom:3.32%;}
+.amount{color:#d28252;}
+.quote input{width:22.67%;margin-left:10.4%;font-weight:bold;}
+section textarea{width:48.2%;height:3.4rem;font-size:0.34rem;}
+.submit{position:relative;}
+.submit span{font-size:0.4rem;padding-left:5.86%;font-weight:bold;}
+.submit a{position:absolute;bottom:0;left:26%;width:0.8rem;height:0.8rem;background:url(../img/call.png);background-size:100%;}
+.submit input{position:absolute;bottom:0;right:6.9%;width:4rem;height:0.8rem;}

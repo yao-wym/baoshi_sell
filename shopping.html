@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>在线采购</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" href="./css/base.css" />
+<link rel="stylesheet" href="./css/list.css" />
+<script>
+document.documentElement.style.fontSize=document.documentElement.clientWidth*0.1+'px';	
+window.onresize=function(){
+	document.documentElement.style.fontSize=document.documentElement.clientWidth*0.1+'px';		
+};
+</script>
+
+</head>
+
+<body>
+<div id="wrapper">
+	<div id="scroller">
+    	<div id="pullDown">
+            <span class="pullDownLabel"></span>
+        </div>
+    	<ul id="thelist" class="list">
+            <li class="clearfix">
+                <div class="list_pic">
+                    <img src="./img/shop.jpg"/>
+                </div>
+                <div class="list_center">
+                    <h3>名称:粒化高炉矿渣粉</h3>
+                    <p>型号:Q235、HRB335</p>
+                    <p>厂家:宝鑫</p>
+                    <p>库存:326吨</p>
+                    <p>日期:2016年01月22日</p>
+                </div>
+                <div class="list_right">
+                    <p>价格:560</p>
+                    <input type="image" src="./img/book_btn.png" alt="Submit" />
+                </div>
+            </li>
+            <li class="clearfix">
+                <div class="list_pic">
+                    <img src="./img/shop.jpg"/>
+                </div>
+                <div class="list_center">
+                    <h3>名称:粒化高炉矿渣粉</h3>
+                    <p>型号:Q235、HRB335</p>
+                    <p>厂家:宝鑫</p>
+                    <p>库存:326吨</p>
+                    <p>日期:2016年01月22日</p>
+                </div>
+                <div class="list_right">
+                    <p>价格:560</p>
+                    <input type="image" src="./img/book_btn.png" alt="Submit" />
+                </div>
+            </li>
+        </ul>
+        <div id="pullUp">
+            <span class="pullUpLabel"></span>
+        </div>
+    </div>
+</div>
+</body>
+<script src="./js/zepto.min.js"></script>
+<script src="./js/iscroll.js"></script>
+<script src="./js/iscroll_classify.js"></script>
+<script>
+$('list_pic').css('height',$('list_pic').width());
+//点击商品跳转
+$('#thelist li').tap(function(){
+	window.location.href='shopping_ifo.html';	
+});
+</script>
+</html>
