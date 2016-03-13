@@ -1,8 +1,8 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>在线销售</title>
+<title>诗画旅游</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="./css/base.css" />
 <link rel="stylesheet" href="./css/list.css" />
@@ -16,7 +16,7 @@ window.onresize=function(){
  {{ for (var i = 0, l = it.data.length; i < l; i++) { }}
                <li class="clearfix" goodsId="{{=it.data[i].id}}">
                 <div class="list_pic">
-                    <img src="./img/shop.jpg"/>
+                    <img src="{{=it.data[i].thumb}}"/>
                 </div>
                 <div class="list_center">
                     <h3>名称:{{=it.data[i].title}}</h3>
@@ -27,8 +27,8 @@ window.onresize=function(){
                 </div>
                 <div class="list_right">
                     <p></p>
-                     <a style="height:50%;widht:40px;margin:0px;font-size:10px;color:gray" href="{{=it.data[i].order}}">下载</a>
-                    <input type="image" src="./img/quote_btn.png" alt="Submit" />
+                    <p style="margin:0;font-size:10px">价格:{{?it.data[i].price!=null}}{{=it.data[i].price}}{{??}}暂无{{?}}</p>
+                    <input type="image" src="./img/book_btn.png" alt="Submit" />
                 </div>
             </li>
                 {{ } }}
@@ -63,6 +63,9 @@ loadSell();
 function loadSell(){
     $.getJSON("http://www.sbtkjt.net/app/goods/?type=sell&page="+nowPage,function(data){
         // console.log(JSON.stringify(data));
+	if(data.code==400){
+		return 0;
+	}
         var template = document.getElementById('list-tmpl').innerHTML;
         // console.log(template);
         var tmpText = doT.template(template);

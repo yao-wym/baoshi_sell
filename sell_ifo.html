@@ -1,8 +1,8 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>报价信息</title>
+<title>诗画旅游</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" href="./css/base.css" />
 <link rel="stylesheet" href="./css/list_ifo.css" />
@@ -16,7 +16,7 @@ window.onresize=function(){
 </head>
 
 <body>
-<h2 class="title">报价信息填写</h2>
+<h2 class="title">订购信息填写</h2>
 <section class="clearfix">
 	<p>报价日期</p>
     <div id="book-date"></div>
@@ -30,15 +30,15 @@ window.onresize=function(){
     <div id='version'></div>
 </section>
 <section class="quote clearfix">
-	<p>数量</p>
-    <input id="stock" type="number"/>
+	<p>价格</p>
+    <div id="price" type="number"/>
 </section>
 <section class="quote clearfix">
-	<p>报价</p>
-    <input id="price" type="number"/>
+	<p>订购数量</p>
+    <input id="stock" type="number"/>
 </section>
 <section class="clearfix">
-	<p>报价单位</p>
+	<p>订购人</p>
     <input id="link-name" type="text"/>
 </section>
 <section class="clearfix">
@@ -69,9 +69,10 @@ function getGoodsId(){
 function loadDetail(goodsId){
     $.getJSON("http://www.sbtkjt.net/app/goodsdetail/"+goodsId,function(data){
     	var timeObj = new Date();
-      	$('#book-date').text(timeObj.getFullYear()+'-'+timeObj.getMonth()+'-'+timeObj.getDay());
+      	$('#book-date').text(timeObj.getFullYear()+'-'+(timeObj.getMonth()+1)+'-'+timeObj.getDate());
       	$('#goods-name').text(data.title);
       	$('#version').text(data.version);
+      	$('#price').text(data.price);
       	$('#contact-phone').attr('href',"tel:"+data.link_phone);
     });
 }
@@ -90,7 +91,7 @@ function submitInfo(){
 		dataType: 'json',
 		data: {
 			product_id: goodsId,
-			type: 'sell',
+			type: 'buy',
 			product_name: $('#goods-name').text(),
 			version: $('#version').text(),
 			price: $('#price').val(),
@@ -98,6 +99,7 @@ function submitInfo(){
 			link_name: $('#link-name').val(),
 			link_phone: $('#link-phone').val(),
 			other: $('#goods-name').val(),
+			type:'sell'
 		},
 		success:function(){
 			alert('提交成功');
